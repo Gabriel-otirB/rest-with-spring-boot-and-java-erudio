@@ -1,6 +1,9 @@
 package br.com.otirb.services;
 
+import br.com.otirb.data.dto.PersonDTO;
 import br.com.otirb.exception.ResourceNotFoundException;
+import static br.com.otirb.mapper.ObjectMapper.parseListObjects;
+import static br.com.otirb.mapper.ObjectMapper.parseObject;
 import br.com.otirb.model.Person;
 import br.com.otirb.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -21,26 +24,30 @@ public class PersonServices {
     PersonRepository repository;
 
 
-    public List<Person> findAll() {
-        logger.info("Finding all Persons!");
+    public List<PersonDTO> findAll() {
+        logger.info("Finding all PersonDTOs!");
 
-        return repository.findAll();
+        return parseListObjects(repository.findAll(), PersonDTO.class);
     }
 
-    public Person findById(Long id) {
+    public PersonDTO findById(Long id) {
         logger.info("Finding one Person!");
 
-        return repository.findById(id)
+        var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+
+        return parseObject(entity, PersonDTO.class);
     }
 
-    public Person create(Person person) {
+    public PersonDTO create(PersonDTO person) {
+
         logger.info("Creating one Person!");
+        var entity = parseObject(person, Person.class);
 
-        return repository.save(person);
+        return parseObject(repository.save(entity), PersonDTO.class);
     }
 
-    public Person update(Person person) {
+    public PersonDTO update(PersonDTO person) {
         logger.info("Updating one Person!");
 
         Person entity = repository.findById(person.getId())
@@ -51,7 +58,7 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return repository.save(entity);
+        return parseObject(repository.save(entity), PersonDTO.class);
     }
 
     public void delete(Long id) {
