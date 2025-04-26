@@ -1,4 +1,4 @@
-package br.com.otirb.data.dto;
+package br.com.otirb.data.dto.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
