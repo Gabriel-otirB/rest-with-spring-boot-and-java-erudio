@@ -9,12 +9,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
+    properties: {}
     show-sql: false
     open-in-view: false
-#spring: jpa: open-in-view:
+
 logging:
   level:
-#    root: WARN
+    root: INFO
     br.com.otirb: DEBUG
