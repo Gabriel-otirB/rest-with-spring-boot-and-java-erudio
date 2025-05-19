@@ -12,7 +12,7 @@ public class TestLogController {
 
     private Logger logger = LoggerFactory.getLogger(TestLogController.class.getName());
 
-    @GetMapping("/test")
+    @GetMapping("/api/test/v1")
     public String testLog() {
         logger.info("This is an INFO log");
         logger.debug("This is an DEBUG log");
