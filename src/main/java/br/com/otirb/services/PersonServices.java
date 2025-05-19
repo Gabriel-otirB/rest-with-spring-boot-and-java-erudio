@@ -1,9 +1,12 @@
 package br.com.otirb.services;
 
-import br.com.otirb.data.dto.PersonDTO;
+import br.com.otirb.data.dto.v1.PersonDTO;
+import br.com.otirb.data.dto.v2.PersonDTOV2;
 import br.com.otirb.exception.ResourceNotFoundException;
 import static br.com.otirb.mapper.ObjectMapper.parseListObjects;
 import static br.com.otirb.mapper.ObjectMapper.parseObject;
+
+import br.com.otirb.mapper.custom.PersonMapper;
 import br.com.otirb.model.Person;
 import br.com.otirb.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -22,6 +25,9 @@ public class PersonServices {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    PersonMapper converter;
 
 
     public List<PersonDTO> findAll() {
@@ -45,6 +51,14 @@ public class PersonServices {
         var entity = parseObject(person, Person.class);
 
         return parseObject(repository.save(entity), PersonDTO.class);
+    }
+
+    public PersonDTOV2 createV2(PersonDTOV2 person) {
+
+        logger.info("Creating one Person!");
+        var entity = converter.convertDTOToEntity(person);
+
+        return converter.convertEntityToDTO(repository.save(entity));
     }
 
     public PersonDTO update(PersonDTO person) {

@@ -3,7 +3,7 @@ package br.com.otirb.unittests.mapper.mocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.otirb.data.dto.PersonDTO;
+import br.com.otirb.data.dto.v1.PersonDTO;
 import br.com.otirb.model.Person;
 
 public class MockPerson {
