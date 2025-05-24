@@ -13,8 +13,8 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
-#spring: jpa: open-in-view:
 logging:
   level:
+    root: INFO
 #    root: WARN
-    br.com.otirb: DEBUG
+#    br.com.otirb: DEBUG
